@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoavaliação de Governança de IA — ISO/IEC 42001 × PL 2338 × FSB × BACEN</title>
+<meta name="description" content="Instrumento de autoavaliação de maturidade em governança de IA para instituições financeiras brasileiras. 57 requisitos mapeados entre ISO/IEC 42001, PL 2338/2023, FSB e BACEN/CMN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bordo:#6E1E2A;
+  --bordo-esc:#4A121B;
+  --ouro:#C9A227;
+  --creme:#FBF7EF;
+  --papel:#FFFFFF;
+  --tinta:#1C1A18;
+  --grafite:#6B6560;
+  --linha:#E2DACB;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--creme);color:var(--tinta);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.narrow{max-width:720px}
+
+/* ---------- masthead ---------- */
+.masthead{background:var(--bordo);color:var(--creme);padding:56px 0 0}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ouro);margin:0 0 22px
+}
+.masthead h1{
+  font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5.6vw,3.6rem);
+  line-height:1.08;margin:0 0 14px;letter-spacing:-.01em
+}
+.masthead .sub{font-size:clamp(.95rem,2vw,1.05rem);margin:0 0 6px;color:#F0E4DF}
+.masthead .sub-2{font-size:.9rem;color:var(--ouro);margin:0 0 44px}
+
+.numeros{
+  background:var(--creme);color:var(--tinta);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:3px solid var(--ouro)
+}
+.num{padding:26px 20px;border-right:1px solid var(--linha);text-align:center}
+.num:last-child{border-right:none}
+.num b{
+  display:block;font-family:'Newsreader',serif;font-weight:500;
+  font-size:clamp(1.9rem,4.4vw,2.6rem);color:var(--bordo);line-height:1
+}
+.num span{display:block;font-size:.74rem;color:var(--grafite);margin-top:8px;line-height:1.35}
+
+/* ---------- tese ---------- */
+.tese{padding:52px 0 8px}
+.tese p{font-size:1.06rem;line-height:1.7}
+.tese .lead b{color:var(--bordo)}
+.ressalva{
+  border-left:3px solid var(--ouro);background:var(--papel);
+  padding:16px 20px;margin:28px 0 0;font-size:.86rem;color:var(--grafite);line-height:1.6
+}
+.ressalva b{color:var(--tinta)}
+
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 56px}
+.btn{
+  display:inline-block;padding:13px 22px;border-radius:2px;text-decoration:none;
+  font-size:.9rem;font-weight:500;border:1px solid var(--bordo);cursor:pointer;
+  font-family:inherit;transition:background .15s,color .15s
+}
+.btn-cheio{background:var(--bordo);color:var(--creme)}
+.btn-cheio:hover{background:var(--bordo-esc)}
+.btn-vazio{background:transparent;color:var(--bordo)}
+.btn-vazio:hover{background:var(--bordo);color:var(--creme)}
+:focus-visible{outline:2px solid var(--ouro);outline-offset:3px}
+
+/* ---------- divisor de seção ---------- */
+.sec-cab{border-top:1px solid var(--linha);padding-top:14px;margin:0 0 30px}
+.sec-cab .kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ouro)
+}
+.sec-cab h2{
+  font-family:'Newsreader',serif;font-weight:400;font-size:clamp(1.5rem,3.4vw,2rem);
+  margin:6px 0 8px;color:var(--bordo)
+}
+.sec-cab p{margin:0;color:var(--grafite);font-size:.92rem;max-width:64ch}
+
+/* ---------- escala ---------- */
+.escala{
+  background:var(--papel);border:1px solid var(--linha);padding:18px 20px;margin-bottom:30px
+}
+.escala ol{margin:0;padding:0;list-style:none;display:grid;gap:6px;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.escala li{font-size:.8rem;color:var(--grafite);display:flex;gap:9px;align-items:baseline}
+.escala .n{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--papel);
+  background:var(--bordo);width:19px;height:19px;flex:0 0 19px;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:2px
+}
+.escala li b{color:var(--tinta);font-weight:500}
+
+/* ---------- instrumento ---------- */
+.layout{display:grid;grid-template-columns:1fr 302px;gap:36px;align-items:start}
+.bloco{margin-bottom:40px}
+.bloco-cab{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-bottom:2px solid var(--bordo);padding-bottom:8px;margin-bottom:2px
+}
+.bloco-cab h3{
+  font-family:'Newsreader',serif;font-weight:500;font-size:1.15rem;margin:0;color:var(--bordo)
+}
+.bloco-cab .peso{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--grafite);
+  letter-spacing:.08em;text-transform:uppercase;white-space:nowrap
+}
+.linha-item{
+  display:grid;grid-template-columns:62px 1fr auto;gap:14px;align-items:center;
+  padding:11px 4px;border-bottom:1px solid var(--linha)
+}
+.linha-item:hover{background:var(--papel)}
+.cod{
+  font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--bordo);font-weight:500
+}
+.rotulo{font-size:.88rem;line-height:1.4}
+.flag{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--ouro);
+  border:1px solid var(--ouro);padding:0 4px;border-radius:2px;margin-left:7px;
+  vertical-align:1px;letter-spacing:.06em;cursor:help
+}
+fieldset.notas{border:0;margin:0;padding:0;display:flex;gap:4px}
+fieldset.notas legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cel{position:relative}
+.cel input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.cel span{
+  display:flex;align-items:center;justify-content:center;
+  width:27px;height:27px;border:1px solid var(--linha);background:var(--papel);
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--grafite);
+  border-radius:2px;transition:background .12s,color .12s,border-color .12s
+}
+.cel input:checked + span{background:var(--bordo);border-color:var(--bordo);color:var(--creme)}
+.cel input:focus-visible + span{outline:2px solid var(--ouro);outline-offset:2px}
+.cel:hover span{border-color:var(--bordo)}
+
+/* ---------- painel ---------- */
+.painel{position:sticky;top:20px;background:var(--papel);border:1px solid var(--linha);padding:22px}
+.painel h4{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ouro);margin:0 0 16px
+}
+.indice{font-family:'Newsreader',serif;font-size:3.4rem;line-height:1;color:var(--bordo);font-weight:500}
+.indice small{font-size:1.1rem;color:var(--grafite)}
+.nivel{font-size:.86rem;color:var(--grafite);margin:6px 0 20px}
+.barra-lin{margin-bottom:14px}
+.barra-lin .top{display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:5px}
+.barra-lin .top b{font-weight:500}
+.barra-lin .top i{font-style:normal;font-family:'IBM Plex Mono',monospace;color:var(--bordo)}
+.trilho{height:7px;background:var(--creme);border:1px solid var(--linha);border-radius:2px;overflow:hidden}
+.preenche{height:100%;background:var(--bordo);width:0;transition:width .25s ease}
+.preenche.ouro{background:var(--ouro)}
+.progresso{
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--grafite);
+  border-top:1px solid var(--linha);margin-top:18px;padding-top:14px
+}
+.painel .btn{width:100%;text-align:center;margin-top:10px;font-size:.82rem;padding:10px}
+.leitura{
+  font-size:.82rem;color:var(--grafite);line-height:1.55;
+  border-top:1px solid var(--linha);margin-top:16px;padding-top:14px
+}
+
+/* ---------- perguntas ---------- */
+.perguntas{background:var(--bordo);color:var(--creme);padding:52px 0;margin-top:56px}
+.perguntas .sec-cab{border-top-color:rgba(251,247,239,.25)}
+.perguntas .sec-cab h2{color:var(--creme)}
+.perguntas .sec-cab p{color:#E7D4CE}
+.perguntas ol{counter-reset:q;list-style:none;padding:0;margin:0;
+  display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.perguntas li{
+  counter-increment:q;padding:18px 20px;background:rgba(251,247,239,.07);
+  border-left:2px solid var(--ouro);font-size:.92rem;line-height:1.5
+}
+.perguntas li::before{
+  content:counter(q,decimal-leading-zero);display:block;
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ouro);margin-bottom:7px
+}
+
+/* ---------- autor / rodapé ---------- */
+.autor{padding:52px 0}
+.autor-card{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+  background:var(--papel);border:1px solid var(--linha);padding:28px}
+.autor-card h3{font-family:'Newsreader',serif;font-weight:500;font-size:1.4rem;margin:0 0 4px;color:var(--bordo)}
+.autor-card .cargo{font-size:.88rem;color:var(--grafite);margin:0 0 12px}
+.autor-card p{margin:0;font-size:.9rem;max-width:52ch;color:var(--grafite)}
+.contatos{display:flex;flex-direction:column;gap:9px;white-space:nowrap}
+.contatos a{font-size:.86rem;color:var(--bordo);text-decoration:none;border-bottom:1px solid var(--linha)}
+.contatos a:hover{border-color:var(--bordo)}
+footer{border-top:1px solid var(--linha);padding:26px 0 42px;font-size:.78rem;color:var(--grafite)}
+footer p{margin:0 0 6px;max-width:74ch}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .painel{position:static;order:-1;margin-bottom:8px}
+  .numeros{grid-template-columns:repeat(2,1fr)}
+  .num:nth-child(2){border-right:none}
+  .num:nth-child(1),.num:nth-child(2){border-bottom:1px solid var(--linha)}
+  .autor-card{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .linha-item{grid-template-columns:52px 1fr;row-gap:9px}
+  fieldset.notas{grid-column:1/-1;justify-content:flex-start}
+  .cel span{width:34px;height:32px}
+}
+@media print{
+  .masthead,.perguntas{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .acoes,.painel .btn,.escala{display:none}
+  .layout{grid-template-columns:1fr}
+  .linha-item:hover{background:none}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Instrumento técnico · Versão 1.0 · Agosto de 2026</p>
+    <h1>Autoavaliação de<br>Governança de IA</h1>
+    <p class="sub">ISO/IEC 42001 × PL 2338/2023 × FSB × BACEN/CMN</p>
+    <p class="sub-2">Para instituições financeiras brasileiras</p>
+  </div>
+  <div class="numeros">
+    <div class="num"><b>57</b><span>requisitos mapeados<br>entre as quatro normas</span></div>
+    <div class="num"><b>26</b><span>sensíveis ao texto<br>final do PL 2338</span></div>
+    <div class="num"><b>31</b><span>controles do Anexo A<br>cobertos nesta versão</span></div>
+    <div class="num"><b>12</b><span>práticas do FSB<br>rastreadas de volta à ISO</span></div>
+  </div>
+</header>
+
+<section class="wrap tese">
+  <div class="narrow">
+    <p class="lead"><b>A tese em um parágrafo.</b> Instituições financeiras brasileiras já operam a maior
+    parte da arquitetura que a ISO/IEC 42001 exige — política aprovada em conselho, estrutura de risco,
+    auditoria interna, informação documentada com retenção de cinco anos. O que não existe ainda está
+    concentrado em dois lugares: planejamento (cláusula 6) e operação (cláusula 8). Tratar a 42001 como
+    iniciativa nova, desconectada do que já existe em gestão de risco de modelo e LGPD, produz retrabalho
+    caro e um sistema de gestão paralelo que ninguém opera.</p>
+    <p>Este instrumento pontua os 57 requisitos numa escala de seis níveis e devolve um índice por bloco.
+    Não é certificação nem substitui auditoria: é um número para a conversa de comitê. Roda inteiramente no
+    seu navegador — nada é enviado, salvo ou registrado.</p>
+    <div class="ressalva">
+      <b>Leia antes de citar.</b> O PL 2338 está em tramitação e sua numeração mudará; o documento do FSB é
+      consulta pública, não norma; o mapeamento BACEN é por analogia. Insumo técnico para discussão de
+      comitê, não parecer jurídico.
+    </div>
+    <div class="acoes">
+      <a class="btn btn-cheio" href="crosswalk-iso42001-pl2338-fsb-bacen-v1.pdf">Baixar o crosswalk completo (PDF, 12 páginas)</a>
+      <a class="btn btn-vazio" href="#instrumento">Ir para a autoavaliação</a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="instrumento">
+  <div class="sec-cab">
+    <span class="kicker">O instrumento</span>
+    <h2>57 requisitos, seis níveis</h2>
+    <p>Pontue cada requisito pelo que a instituição consegue evidenciar hoje, não pelo que pretende fazer.
+    Cláusulas têm peso 2; controles do Anexo A e práticas do FSB, peso 1. O índice atualiza a cada resposta.</p>
+  </div>
+
+  <div class="escala">
+    <ol>
+      <li><span class="n">0</span><span><b>Inexistente</b> — nenhuma prática identificável.</span></li>
+      <li><span class="n">1</span><span><b>Inicial</b> — existe de forma isolada, dependente de indivíduos.</span></li>
+      <li><span class="n">2</span><span><b>Repetível</b> — repete-se, mas sem documentação ou padrão.</span></li>
+      <li><span class="n">3</span><span><b>Definido</b> — processo documentado, aprovado e comunicado.</span></li>
+      <li><span class="n">4</span><span><b>Gerenciado</b> — medido por indicadores, com evidência retida.</span></li>
+      <li><span class="n">5</span><span><b>Otimizado</b> — revisado por auditoria independente e melhorado ciclicamente.</span></li>
+    </ol>
+  </div>
+
+  <div class="layout">
+    <div id="blocos"></div>
+
+    <aside class="painel" aria-live="polite">
+      <h4>Índice de maturidade</h4>
+      <div class="indice"><span id="idxPct">0</span><small>%</small></div>
+      <p class="nivel" id="idxNivel">Nenhum requisito pontuado ainda.</p>
+
+      <div class="barra-lin">
+        <div class="top"><b>Cláusulas 4 a 10</b><i id="pClausula">0%</i></div>
+        <div class="trilho"><div class="preenche" id="bClausula"></div></div>
+      </div>
+      <div class="barra-lin">
+        <div class="top"><b>Anexo A — controles</b><i id="pAnexo">0%</i></div>
+        <div class="trilho"><div class="preenche" id="bAnexo"></div></div>
+      </div>
+      <div class="barra-lin">
+        <div class="top"><b>Práticas do FSB</b><i id="pFsb">0%</i></div>
+        <div class="trilho"><div class="preenche ouro" id="bFsb"></div></div>
+      </div>
+
+      <p class="progresso"><span id="respondidos">0</span> de 57 respondidos · <span id="pontos">0</span> de 355 pontos</p>
+      <button class="btn btn-cheio" id="btnImprimir" type="button">Salvar resultado em PDF</button>
+      <button class="btn btn-vazio" id="btnLimpar" type="button">Limpar respostas</button>
+      <p class="leitura" id="leitura">O bloco mais baixo é onde a conversa de comitê começa — normalmente
+      cláusulas 6 e 8, e os controles de dados de treinamento.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="perguntas">
+  <div class="wrap">
+    <div class="sec-cab">
+      <span class="kicker">Diagnóstico</span>
+      <h2>Quatro perguntas para levar ao comitê</h2>
+      <p>Se a instituição não responde às quatro com evidência documentada, o gap não está na norma —
+      está na operação.</p>
+    </div>
+    <ol>
+      <li>Quantos sistemas de IA em produção a instituição consegue listar hoje, com responsável nomeado por cada um?</li>
+      <li>Para o sistema de IA de maior exposição, existe registro que permita reconstruir uma decisão individual tomada há noventa dias?</li>
+      <li>Qual é o percentual da inferência de IA que depende de um único provedor externo?</li>
+      <li>Existe teste de disparidade documentado para as decisões automatizadas que afetam crédito, precificação ou contratação?</li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap autor">
+  <div class="autor-card">
+    <div>
+      <h3>Bruno de Moura</h3>
+      <p class="cargo">Governança de Dados e IA em Ambientes Regulados</p>
+      <p>Vinte anos em instituições reguladas — banco, seguro e varejo. Implantação de plataforma de dados
+      multicloud e construção de framework de governança de dados e IA em banco médio: política de IA
+      responsável, comitê de Data Owners e Stewards, e o mapeamento que originou este instrumento.</p>
+    </div>
+    <div class="contatos">
+      <a href="https://www.linkedin.com/in/SEU-PERFIL">LinkedIn</a>
+      <a href="mailto:SEU-EMAIL">Enviar e-mail</a>
+      <a href="crosswalk-iso42001-pl2338-fsb-bacen-v1.pdf">Crosswalk em PDF</a>
+      <a href="https://github.com/SEU-USUARIO/SEU-REPO">Código no GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Distribuído sob licença Creative Commons CC BY 4.0. Cópia, redistribuição e adaptação permitidas,
+    inclusive comercialmente, mediante atribuição.</p>
+    <p>Não constitui parecer jurídico nem substitui avaliação por profissional habilitado. Data-base desta
+    versão: agosto de 2026 — confirme a vigência das normas antes de citar externamente.</p>
+    <p>Nenhum dado é coletado, transmitido ou armazenado. Toda a pontuação acontece no seu navegador.</p>
+  </div>
+</footer>
+
+<script>
+const ITENS=[
+["C-01","4.1 Compreensão da organização e seu contexto",1],
+["C-02","4.2 Necessidades e expectativas de partes interessadas",1],
+["C-03","4.3 Determinação do escopo do SGIA",0],
+["C-04","4.4 Sistema de gestão de IA",0],
+["C-05","5.2 Política de IA",1],
+["C-06","5.3 Papéis, responsabilidades e autoridades",1],
+["C-07","6.1.2 Avaliação de riscos de IA",1],
+["C-08","6.1.3 Tratamento de riscos de IA",1],
+["C-09","6.1.4 Avaliação de impacto de sistemas de IA",1],
+["C-10","6.2 Objetivos de IA e planejamento",0],
+["C-11","7.2 e 7.3 Competência e conscientização",0],
+["C-12","7.5 Informação documentada",1],
+["C-13","8.1 Planejamento e controle operacional",1],
+["C-14","9.2, 9.3 e 10.2 Auditoria interna, análise crítica e ação corretiva",0],
+["A-01","A.2.2 Política de IA",0],
+["A-02","A.2.3 Alinhamento com outras políticas organizacionais",0],
+["A-03","A.2.4 Análise crítica da política de IA",0],
+["A-04","A.3.2 Papéis e responsabilidades de IA",0],
+["A-05","A.3.3 Reporte de preocupações",0],
+["A-06","A.4.2 Documentação de recursos do sistema de IA",0],
+["A-07","A.4.3 Recursos de dados",1],
+["A-08","A.4.4 Recursos de ferramentas",0],
+["A-09","A.4.5 Recursos de sistema e computação",0],
+["A-10","A.5.2 Processo de avaliação de impacto",1],
+["A-11","A.5.3 Documentação da avaliação de impacto",1],
+["A-12","A.5.4 Impacto sobre indivíduos e grupos",1],
+["A-13","A.5.5 Impacto societal",1],
+["A-14","A.6.1.2 Objetivos para desenvolvimento responsável",0],
+["A-15","A.6.1.3 Processos de projeto e desenvolvimento responsáveis",0],
+["A-16","A.6.2.2 Requisitos e especificação do sistema de IA",0],
+["A-17","A.6.2.3 Documentação do projeto e desenvolvimento",0],
+["A-18","A.6.2.4 Verificação e validação do sistema de IA",1],
+["A-19","A.6.2.6 Operação e monitoramento do sistema de IA",1],
+["A-20","A.7.2 Processo de gestão de dados",1],
+["A-21","A.7.3 Aquisição de dados",1],
+["A-22","A.7.4 Qualidade de dados para sistemas de IA",1],
+["A-23","A.7.5 Proveniência de dados",1],
+["A-24","A.7.6 Preparação de dados",1],
+["A-25","A.8.2 Documentação do sistema para usuários",0],
+["A-26","A.8.3 Comunicação de incidentes",1],
+["A-27","A.8.4 Informação a partes interessadas",1],
+["A-28","A.9.2 Processos para uso responsável de IA",0],
+["A-29","A.9.3 Objetivos para uso responsável",1],
+["A-30","A.10.2 Alocação de responsabilidades na cadeia de fornecimento",1],
+["A-31","A.10.3 Fornecedores e provedores externos de IA",1],
+["F-01","Prática 1 — Perímetro e papéis na cadeia de IA",0],
+["F-02","Prática 2 — Transparência com clientes e stakeholders",0],
+["F-03","Prática 3 — Avaliação de risco e de impacto de modelos",0],
+["F-04","Prática 4 — Política e apetite por risco de IA",0],
+["F-05","Prática 5 — Accountability nomeada",0],
+["F-06","Prática 6 — Métricas de desempenho e monitoramento contínuo",0],
+["F-07","Prática 7 — Supervisão humana efetiva",0],
+["F-08","Prática 8 — Capacidade técnica interna",0],
+["F-09","Prática 9 — Trilha de auditoria e rastreabilidade de inferência",0],
+["F-10","Prática 10 — Governança de dados de treinamento",0],
+["F-11","Prática 11 — Risco de terceiros e concentração de fornecedores",0],
+["F-12","Prática 12 — Revisão independente e reporte",0]
+];
+
+const BLOCOS=[
+ {pre:"C",titulo:"Cláusulas 4 a 10 da ISO/IEC 42001",peso:2,nota:"14 requisitos · peso 2"},
+ {pre:"A",titulo:"Anexo A da ISO/IEC 42001",peso:1,nota:"31 controles · peso 1"},
+ {pre:"F",titulo:"Práticas do FSB — consulta de jun/2026",peso:1,nota:"12 práticas · peso 1"}
+];
+
+const NIVEIS=[
+ [0,  "Nenhum requisito pontuado ainda."],
+ [20, "Inexistente a inicial — não há sistema de gestão identificável."],
+ [40, "Inicial a repetível — práticas existem, dependentes de pessoas."],
+ [60, "Repetível a definido — o processo existe; falta padronizar e evidenciar."],
+ [80, "Definido a gerenciado — base sólida; o gap é de medição e evidência."],
+ [101,"Gerenciado a otimizado — pronto para auditoria independente."]
+];
+
+const respostas={};
+const cont=document.getElementById("blocos");
+
+BLOCOS.forEach(b=>{
+  const sec=document.createElement("div");
+  sec.className="bloco";
+  sec.innerHTML=`<div class="bloco-cab"><h3>${b.titulo}</h3><span class="peso">${b.nota}</span></div>`;
+  ITENS.filter(i=>i[0][0]===b.pre).forEach(([id,nome,sens])=>{
+    const row=document.createElement("div");
+    row.className="linha-item";
+    const flag=sens?`<span class="flag" title="Sensível ao texto final do PL 2338">PL</span>`:"";
+    let cels="";
+    for(let n=0;n<=5;n++){
+      cels+=`<label class="cel"><input type="radio" name="${id}" value="${n}"
+              aria-label="${id} nível ${n}"><span>${n}</span></label>`;
+    }
+    row.innerHTML=`<span class="cod">${id}</span>
+      <span class="rotulo">${nome}${flag}</span>
+      <fieldset class="notas"><legend>${id} ${nome}</legend>${cels}</fieldset>`;
+    sec.appendChild(row);
+  });
+  cont.appendChild(sec);
+});
+
+cont.addEventListener("change",e=>{
+  if(e.target.type!=="radio")return;
+  respostas[e.target.name]=Number(e.target.value);
+  recalcular();
+});
+
+function recalcular(){
+  const acc={C:[0,0],A:[0,0],F:[0,0]};
+  ITENS.forEach(([id])=>{
+    const b=id[0], peso=(b==="C")?2:1;
+    acc[b][1]+=peso*5;
+    if(id in respostas) acc[b][0]+=peso*respostas[id];
+  });
+  const pontos=acc.C[0]+acc.A[0]+acc.F[0];
+  const maximo=acc.C[1]+acc.A[1]+acc.F[1];
+  const pct=Math.round(pontos/maximo*100);
+
+  set("bClausula","pClausula",acc.C);
+  set("bAnexo","pAnexo",acc.A);
+  set("bFsb","pFsb",acc.F);
+
+  document.getElementById("idxPct").textContent=pct;
+  document.getElementById("pontos").textContent=pontos;
+  const n=Object.keys(respostas).length;
+  document.getElementById("respondidos").textContent=n;
+  document.getElementById("idxNivel").textContent =
+    n===0 ? NIVEIS[0][1] : NIVEIS.find(x=>pct<x[0])[1];
+
+  const nomes={C:"as cláusulas 4 a 10",A:"os controles do Anexo A",F:"as práticas do FSB"};
+  let pior="C", menor=2;
+  ["C","A","F"].forEach(k=>{const v=acc[k][0]/acc[k][1]; if(v<menor){menor=v;pior=k;}});
+  document.getElementById("leitura").textContent = n<10
+    ? "O bloco mais baixo é onde a conversa de comitê começa — normalmente cláusulas 6 e 8, e os controles de dados de treinamento."
+    : `Bloco mais fraco: ${nomes[pior]}, em ${Math.round(menor*100)}%. É por aí que a análise de lacunas deve começar — não se classifica risco do que não está inventariado.`;
+}
+
+function set(barId,pctId,par){
+  const v=par[1]?par[0]/par[1]:0;
+  document.getElementById(barId).style.width=(v*100)+"%";
+  document.getElementById(pctId).textContent=Math.round(v*100)+"%";
+}
+
+document.getElementById("btnLimpar").addEventListener("click",()=>{
+  cont.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);
+  Object.keys(respostas).forEach(k=>delete respostas[k]);
+  recalcular();
+});
+document.getElementById("btnImprimir").addEventListener("click",()=>window.print());
+
+recalcular();
+</script>
+</body>
+</html>
